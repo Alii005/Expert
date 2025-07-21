@@ -12,7 +12,7 @@ class BaseClass:
         loggerName = inspect.stack()[1][3]
         logger =    logging.getLogger(loggerName)
         fileHandler = logging.FileHandler(
-            "C:\\Users\\Selteq\\PycharmProjects\\ExpertFrontEnd\\logfiles\\text.log")
+            "C:\\Users\\aliih\\PycharmProjects\\ExpertFrontEnd\\logfiles\\text.log")
         formatter = logging.Formatter("%(asctime)s :%(levelname)s : %(name)s :%(message)s")
         fileHandler.setFormatter(formatter)
         logger.addHandler(fileHandler)  # filehandler object

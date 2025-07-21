@@ -1,9 +1,12 @@
+import time
+
 import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common import actions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from Login.test_loginData import login_data
 
 
 class Login_page:
@@ -13,7 +16,7 @@ class Login_page:
         self.wait = WebDriverWait(self.driver, 10)
         self.actions= ActionChains(self.driver)
 
-    button = (By.XPATH, "//button[text()='Signup/ Login']")
+    button = (By.XPATH, "//body/div[@id='__next']/div[1]/div[3]/div[1]/main[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/button[1]")
 
     putNumber = (By.XPATH, "//input[@class='form-control ']")
 
@@ -21,7 +24,7 @@ class Login_page:
 
     putpass = (By.XPATH, "//input[@placeholder='Enter Password']")
 
-    loginbutton = (By.XPATH, "//button[text()='Login']")
+    loginbutton = (By.CSS_SELECTOR, "div.container.mt-5.mb-4.text-center:nth-child(3) div.backgroundsignup div.row div.col-md-8.mx-auto.background_grid_auth.d-flex.flex-column.align-items-center div.m-auto.display_pc div.mt-md-0.pt-md-0.mt-5.pt-5:nth-child(6) > button.Buttonstyle__Button-sc-1kmktzo-0.hRSFol")
 
     profileBtn = (By.XPATH,"//p[@class='m-0 pt-1 text_user_profile']")
 
@@ -61,6 +64,23 @@ class Login_page:
 
     homebtn = (By.XPATH, "//img[@class='img-fluid width_ll']")
 
+    search = (By.ID,"myInput")
+
+    searched_service = (By.XPATH,"//p[@class='font_size_search']")
+
+    attr_click = (By.XPATH,"//body/div[@id='__next']/div[1]/div[3]/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]")
+
+    booknow = (By.XPATH, "//button[text()=' Book Now ']")
+
+    select_business = (By.XPATH,"//body[1]/div[1]/div[1]/div[3]/div[1]/div[5]/div[1]/div[1]/div[4]/div[1]/span[2]/img[1]")
+
+    date_selection = (By.XPATH,"//p[text()='Thu']")
+
+    time_selection = (By.XPATH,"//span[text()='15:05']")
+
+    slot_nxt = (By.XPATH,"//body/div[@id='__next']/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/button[1]")
+
+    paynow = (By.XPATH, "//button[text()='Pay Now']")
 
     def signin_button(self):
         return self.driver.find_element(*Login_page.button).click()
@@ -86,7 +106,7 @@ class Login_page:
 
     def is_button_clickable(self):
         try:
-            button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Login']")))
+            button = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.container.mt-5.mb-4.text-center:nth-child(3) div.backgroundsignup div.row div.col-md-8.mx-auto.background_grid_auth.d-flex.flex-column.align-items-center div.m-auto.display_pc div.mt-md-0.pt-md-0.mt-5.pt-5:nth-child(6) > button.Buttonstyle__Button-sc-1kmktzo-0.hRSFol")))
             return button.is_enabled()
         except Exception as e:
             raise Exception("Login button is not clickable")
@@ -157,6 +177,41 @@ class Login_page:
 
     def homebutton(self):
         return self.driver.find_element(*Login_page.homebtn).click()
+
+    def searchbtn(self,getData):
+        try:
+            search_field = self.wait.until(EC.element_to_be_clickable(self.search))
+            search_field.click()
+            search_field.clear()
+            return search_field
+        except Exception as e:
+            raise Exception("Search is not clickable")
+
+    def searched_Service(self):
+        return self.driver.find_element(*Login_page.searched_service).click()
+
+    def attribute_click(self):
+        return self.driver.find_element(*Login_page.attr_click).click()
+
+    def bookNow_btn(self):
+        return self.driver.find_element(*Login_page.booknow).click()
+
+    def business_selection(self):
+        return self.driver.find_element(*Login_page.select_business).click()
+
+    def dateandtime(self):
+        self.driver.find_element(*Login_page.date_selection).click()
+        time.sleep(3)
+        return self.driver.find_element(*Login_page.time_selection).click()
+
+    def click_slotnext(self):
+        self.wait.until(EC.element_to_be_clickable(self.slot_nxt))
+        return self.driver.find_element(*Login_page.slot_nxt).click()
+
+    def pay_now(self):
+        self.wait.until(EC.element_to_be_clickable(self.paynow))
+        return self.driver.find_element(*Login_page.paynow).click()
+
 
 
 
